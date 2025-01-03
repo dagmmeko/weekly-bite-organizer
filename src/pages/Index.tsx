@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import WeeklySchedule from "@/components/WeeklySchedule";
 import ShoppingList from "@/components/ShoppingList";
-import MealStats from "@/components/MealStats";
 import type { WeekSchedule, MealType } from "@/types/menu";
 import { addDays, startOfWeek } from "date-fns";
 import { toast } from "sonner";
@@ -58,13 +57,12 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-secondary p-6">
       <div className="max-w-7xl mx-auto space-y-8">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Menu Planner</h1>
+        <h1 className="text-4xl font-bold text-center mb-8">Menu Planner</h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <WeeklySchedule schedule={schedule} onAddMeal={handleAddMeal} />
           </div>
-          <div className="space-y-8">
-            <MealStats schedule={schedule} />
+          <div>
             <ShoppingList schedule={schedule} />
           </div>
         </div>
