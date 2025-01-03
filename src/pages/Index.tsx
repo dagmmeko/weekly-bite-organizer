@@ -1,11 +1,59 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React, { useState } from "react";
+import WeeklySchedule from "@/components/WeeklySchedule";
+import ShoppingList from "@/components/ShoppingList";
+import type { WeekSchedule, MealType } from "@/types/menu";
+import { addDays, startOfWeek } from "date-fns";
+import { toast } from "sonner";
 
 const Index = () => {
+  const [schedule, setSchedule] = useState<WeekSchedule>({
+    days: Array.from({ length: 7 }, (_, i) => ({
+      date: addDays(startOfWeek(new Date()), i).toISOString(),
+      breakfast: null,
+      lunch: null,
+      dinner: null,
+    })),
+  });
+
+  const handleAddMeal = (date: string, type: MealType) => {
+    const mealName = prompt("Enter meal name:");
+    if (!mealName) return;
+
+    const ingredients = prompt("Enter ingredients (comma-separated):");
+    if (!ingredients) return;
+
+    setSchedule((prev) => ({
+      days: prev.days.map((day) => {
+        if (day.date === date) {
+          return {
+            ...day,
+            [type]: {
+              id: Math.random().toString(),
+              name: mealName,
+              ingredients: ingredients.split(",").map((i) => i.trim()),
+              type,
+            },
+          };
+        }
+        return day;
+      }),
+    }));
+
+    toast.success("Meal added successfully!");
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-secondary p-6">
+      <div className="max-w-7xl mx-auto space-y-8">
+        <h1 className="text-4xl font-bold text-center mb-8">Menu Planner</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <WeeklySchedule schedule={schedule} onAddMeal={handleAddMeal} />
+          </div>
+          <div>
+            <ShoppingList schedule={schedule} />
+          </div>
+        </div>
       </div>
     </div>
   );
