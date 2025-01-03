@@ -55,13 +55,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/20">
+    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-secondary/20 to-primary/5">
       <div className="max-w-7xl mx-auto p-6 space-y-8">
         <header className="text-center space-y-4 mb-12">
-          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+          <h1 className="text-4xl font-bold text-foreground">
             Weekly Menu Planner
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-foreground/80">
             Plan your meals and generate shopping lists effortlessly
           </p>
         </header>

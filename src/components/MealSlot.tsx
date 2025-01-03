@@ -12,9 +12,9 @@ interface MealSlotProps {
 
 const MealSlot = ({ meal, type, onAddMeal }: MealSlotProps) => {
   return (
-    <Card className="p-4 h-24 flex flex-col justify-between bg-white/70 hover:bg-white/90 transition-colors duration-200">
+    <Card className="p-4 h-24 flex flex-col justify-between bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
       <div className="flex justify-between items-center">
-        <h3 className="text-sm font-medium capitalize text-foreground/80">{type}</h3>
+        <h3 className="text-sm font-medium capitalize text-foreground">{type}</h3>
         {!meal && (
           <Button
             variant="ghost"
@@ -27,7 +27,7 @@ const MealSlot = ({ meal, type, onAddMeal }: MealSlotProps) => {
         )}
       </div>
       {meal ? (
-        <p className="text-sm font-medium text-foreground/90">{meal.name}</p>
+        <p className="text-sm font-medium text-foreground">{meal.name}</p>
       ) : (
         <p className="text-sm text-muted-foreground italic">No meal planned</p>
       )}

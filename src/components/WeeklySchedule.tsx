@@ -12,11 +12,11 @@ interface WeeklyScheduleProps {
 const WeeklySchedule = ({ schedule, onAddMeal }: WeeklyScheduleProps) => {
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-foreground/90">Weekly Schedule</h2>
+      <h2 className="text-2xl font-semibold text-foreground">Weekly Schedule</h2>
       <div className="grid gap-4">
         {schedule.days.map((day) => (
-          <Card key={day.date} className="p-6 hover:shadow-lg transition-shadow duration-200 bg-white/50 backdrop-blur-sm">
-            <h3 className="text-lg font-medium mb-4 text-foreground/80">
+          <div key={day.date} className="p-6 rounded-lg bg-white/80 backdrop-blur-sm hover:shadow-lg transition-shadow duration-200">
+            <h3 className="text-lg font-medium mb-4 text-foreground">
               {format(new Date(day.date), "EEEE, MMM d")}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -36,7 +36,7 @@ const WeeklySchedule = ({ schedule, onAddMeal }: WeeklyScheduleProps) => {
                 onAddMeal={(type) => onAddMeal(day.date, type)}
               />
             </div>
-          </Card>
+          </div>
         ))}
       </div>
     </div>

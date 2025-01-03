@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "@/components/ui/card";
 import type { WeekSchedule } from "@/types/menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -25,8 +24,8 @@ const ShoppingList = ({ schedule }: ShoppingListProps) => {
   const uniqueIngredients = Array.from(uniqueIngredientsMap.values());
 
   return (
-    <Card className="p-6 bg-white/50 backdrop-blur-sm">
-      <h2 className="text-2xl font-semibold mb-4 text-foreground/90">Shopping List</h2>
+    <div className="p-6 rounded-lg bg-white/80 backdrop-blur-sm">
+      <h2 className="text-2xl font-semibold mb-4 text-foreground">Shopping List</h2>
       <ScrollArea className="h-[500px] pr-4">
         <ul className="space-y-2">
           {uniqueIngredients.map((ingredient, index) => (
@@ -36,16 +35,16 @@ const ShoppingList = ({ schedule }: ShoppingListProps) => {
             >
               <input 
                 type="checkbox" 
-                className="rounded border-primary/30 text-primary focus:ring-primary/20"
+                className="rounded border-primary text-primary focus:ring-primary/20"
               />
-              <span className="text-sm text-foreground/80 group-hover:text-foreground transition-colors">
+              <span className="text-sm text-foreground group-hover:text-primary transition-colors">
                 {ingredient}
               </span>
             </li>
           ))}
         </ul>
       </ScrollArea>
-    </Card>
+    </div>
   );
 };
 
