@@ -12,7 +12,19 @@ const ShoppingList = ({ schedule }: ShoppingListProps) => {
     .filter((meal): meal is NonNullable<typeof meal> => meal !== null)
     .flatMap((meal) => meal.ingredients);
 
-  const uniqueIngredients = Array.from(new Set(ingredients));
+  // Create a Map to store normalized ingredients
+  const uniqueIngredientsMap = new Map<string, string>();
+  
+  // Normalize and store ingredients
+  ingredients.forEach((ingredient) => {
+    const normalized = ingredient.trim().toLowerCase();
+    if (!uniqueIngredientsMap.has(normalized)) {
+      uniqueIngredientsMap.set(normalized, ingredient.trim());
+    }
+  });
+
+  // Get unique ingredients while preserving original casing
+  const uniqueIngredients = Array.from(uniqueIngredientsMap.values());
 
   return (
     <Card className="p-6">

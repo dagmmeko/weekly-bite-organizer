@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WeeklySchedule from "@/components/WeeklySchedule";
 import ShoppingList from "@/components/ShoppingList";
 import type { WeekSchedule, MealType } from "@/types/menu";
 import { addDays, startOfWeek } from "date-fns";
 import { toast } from "sonner";
 
+const STORAGE_KEY = "menu-planner-schedule";
+
 const Index = () => {
-  const [schedule, setSchedule] = useState<WeekSchedule>({
-    days: Array.from({ length: 7 }, (_, i) => ({
-      date: addDays(startOfWeek(new Date()), i).toISOString(),
-      breakfast: null,
-      lunch: null,
-      dinner: null,
-    })),
+  const [schedule, setSchedule] = useState<WeekSchedule>(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    return {
+      days: Array.from({ length: 7 }, (_, i) => ({
+        date: addDays(startOfWeek(new Date()), i).toISOString(),
+        breakfast: null,
+        lunch: null,
+        dinner: null,
+      })),
+    };
   });
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(schedule));
+  }, [schedule]);
 
   const handleAddMeal = (date: string, type: MealType) => {
     const mealName = prompt("Enter meal name:");
